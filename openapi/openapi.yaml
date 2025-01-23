@@ -1,0 +1,16 @@
+openapi: 3.0.0
+info:
+  title: Combined API Documentation
+  version: 1.0.0
+servers:
+  - url: https://dashboard.sms2u.io
+security:
+  - bearerAuth: []
+paths:
+  /api/yourApiKey/yourPhoneNumber:
+    $ref: paths/api_yourApiKey_yourPhoneNumber.yaml
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

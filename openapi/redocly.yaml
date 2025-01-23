@@ -1,0 +1,32 @@
+apis:
+  sample@v1:
+    root: openapi/openapi.yaml
+extends:
+  - recommended
+rules:
+  no-unused-components: error
+  no-server-example.com: off
+  parameter-description: off
+  operation-operationId: off
+  operation-4xx-response: off
+  info-license: off
+theme:
+  openapi:
+    theme:
+      sidebar:
+        backgroundColor: "#4eace0"
+        textColor: "ffffff"
+      typography:
+        code:
+          fontFamily: "Ubuntu Mono, monospace"
+          fontSize: "10px"
+        headings:
+          fontFamily: "Roboto, sans-serif"
+          fontWeight: "800"
+    generateCodeSamples:
+      languages:
+        - lang: curl
+        - lang: Node.js
+        - lang: JavaScript
+        - lang: PHP
+        - lang: Python
