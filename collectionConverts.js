@@ -89,7 +89,7 @@ const createYamlFile = async (combinedJson, tagMap, outputFileName) => {
 
     // Convert the combined JSON to OpenAPI YAML
     await postmanToOpenApi(tempJsonFilePath, outputYamlFilePath, {
-      defaultTag: "OverView", // This will only be used as a fallback
+      defaultTag: "General", // This will only be used as a fallback
     });
 
     // Modify tags in the YAML using the tagMap
@@ -111,6 +111,7 @@ const createYamlFile = async (combinedJson, tagMap, outputFileName) => {
 const modifyTagsInYaml = async (yamlFilePath, tagMap) => {
   try {
     const openApiDoc = yaml.load(fs.readFileSync(yamlFilePath, "utf8"));
+    console.log("testinggg")
 
     openApiDoc.security = [
       {
@@ -133,7 +134,7 @@ const modifyTagsInYaml = async (yamlFilePath, tagMap) => {
             if (tagMap[pathKey]) {
               operation.tags = [tagMap[pathKey]];
             } else {
-              operation.tags = ["OverView"];
+              operation.tags = ["General"];
             }
 
             // Check for undefined responses and replace with a default "200" response

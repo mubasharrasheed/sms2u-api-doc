@@ -39,31 +39,30 @@ async function generateDocumentation(endpointDetails, message) {
 async function processCollection(latestCollection, previousCollection, fileName) {
   try {
     const finalDocuments = [];
-    const previousItems = previousCollection.item;
+    const previousItems = previousCollection.item || [];
 
     console.log("Processing collection:", latestCollection.item.length);
 
     for (let i = 0; i < latestCollection.item.length; i++) {
-      const latestUrl = await latestCollection.item[i].request?.url?.raw;
-      console.log("theirrr")
+      const latestItem = latestCollection.item[i];
+      const latestUrl = latestItem.request?.url?.raw;
 
+      console.log("Processing item:", latestItem.name);
+
+      // Handle duplicate URLs
       if (latestUrl) {
-        // Handle duplicate URLs
         if (urlTracker.has(latestUrl)) {
           const existingEntry = urlTracker.get(latestUrl);
           existingEntry.files.push(fileName);
-          existingEntry.params.push(latestCollection.item[i]?.name);
+          existingEntry.params.push(latestItem?.name);
           urlTracker.set(latestUrl, existingEntry);
         } else {
           urlTracker.set(latestUrl, {
             files: [fileName],
-            params: [latestCollection.item[i]?.name],
+            params: [latestItem?.name],
           });
         }
       }
-
-      const previousItem = previousCollection?.item ? previousCollection?.item[i] : [];
-
 
       // Function to compare specific fields
       const isDifferent = (item1, item2) => {
@@ -76,35 +75,48 @@ async function processCollection(latestCollection, previousCollection, fileName)
         );
       };
 
-      const isNewItem = !previousItem;
-      const hasChanges = previousItem && isDifferent(latestCollection.item[i], previousItem);
+      // Check if the item is new or has changes
+      let isNewItem = true;
+      let hasChanges = false;
+
+      for (let j = 0; j < previousItems.length; j++) {
+        const previousItem = previousItems[j];
+
+        if (latestItem.name === previousItem.name) {
+          isNewItem = false; // Item exists in the previous collection
+          hasChanges = isDifferent(latestItem, previousItem);
+          break;
+        }
+      }
+
+      console.log(isNewItem, hasChanges, "Comparison Result");
 
       if (isNewItem || hasChanges) {
-        console.log(isNewItem ? `New item: ${latestCollection.item[i].name}` : `Updated item: ${latestCollection.item[i].name}`);
+        console.log(isNewItem ? `New item: ${latestItem.name}` : `Updated item: ${latestItem.name}`);
 
         const endpointDetails = {
-          name: latestCollection.item[i].name,
+          name: latestItem.name,
           request: {
-            method: latestCollection.item[i].request.method,
-            url: latestCollection.item[i].request.url.raw,
-            headers: latestCollection.item[i].request.header,
-            body: latestCollection.item[i].request.body?.raw,
-            query: latestCollection.item[i].request.url.query,
-            auth: latestCollection.item[i].request.auth,
+            method: latestItem.request.method,
+            url: latestItem.request.url.raw,
+            headers: latestItem.request.header,
+            body: latestItem.request.body?.raw,
+            query: latestItem.request.url.query,
+            auth: latestItem.request.auth,
           },
         };
 
-        // Generate description
+        // Generate description (if needed)
         let description = "";
+        console.log("insideDocumentation");
         description = await generateDocumentation(endpointDetails, message);
 
+        latestItem.request.description = description;
 
-        latestCollection.item[i].request.description = description;
-
-        finalDocuments.push(latestCollection.item[i]);
+        finalDocuments.push(latestItem);
       } else {
-        console.log(`No changes detected: ${latestCollection.item[i].name}`);
-        finalDocuments.push(latestCollection.item[i]);
+        console.log(`No changes detected: ${latestItem.name}`);
+        finalDocuments.push(latestItem);
       }
     }
 
@@ -115,6 +127,8 @@ async function processCollection(latestCollection, previousCollection, fileName)
     console.error(`Error processing collection ${fileName}:`, error);
   }
 }
+
+
 
 
 

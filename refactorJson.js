@@ -30,7 +30,6 @@ const processFile = (filePath, fileName) => {
             let url = item.request.url.raw;
             processedApiIndices.push({ file: fileName, index: currentIndex }); // Store API index
 
-            // Replace placeholders in auth bearer value
             if (item.request.auth?.bearer?.[0]?.value) {
               let authValue = item?.request?.auth?.bearer[0]?.value || "";
               authValue = authValue.replace(
@@ -53,8 +52,6 @@ const processFile = (filePath, fileName) => {
                 ],
               };
             }
-
-            // Replace placeholders in headers
             if (item.request.header[0]) {
               let headerValue = item?.request?.header[0]?.value || "";
               headerValue = headerValue.replace(
@@ -63,8 +60,6 @@ const processFile = (filePath, fileName) => {
               );
               item.request.header[0].value = headerValue;
             }
-
-            // Replace placeholders in query parameters
             if (item.request.url.query) {
               item?.request?.url.query.forEach((query) => {
                 let queryValue = query.value || "";
@@ -76,7 +71,6 @@ const processFile = (filePath, fileName) => {
               });
             }
 
-            // Replace placeholders in body
             if (item.request?.body?.raw) {
               let bodyValue = item?.request?.body?.raw;
               bodyValue = bodyValue.replace(
@@ -86,7 +80,6 @@ const processFile = (filePath, fileName) => {
               item.request.body.raw = bodyValue;
             }
 
-            // Replace placeholders in URL
             url = url.replace(/{{endpoint}}/g, "http://localhost:3000");
             url = url.replace(/{{(.*?)}}/g, (_, placeholder) => placeholder);
             url = url.replace(/\/$/, "");
