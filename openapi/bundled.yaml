@@ -7,13 +7,13 @@ servers:
 security:
   - bearerAuth: []
 paths:
-  /api/messages/SECRET_KEY/PHONE_NO:
+  /api/webhook/SECRET_KEY/PHONE_NO:
     get:
       tags:
         - AccountGeneral
-      summary: messages
+      summary: webhook
       description: |-
-        This endpoint is named `messages` and it is designed to retrieve message data from `https://dashboard.sms2u.io/api/messages/SECRET_KEY/PHONE_NO`, using a GET method. The URL requires two dynamic parameters, the `SECRET_KEY` and the `PHONE_NO` which should be replaced by the valid secret key and phone number respectively before making a request.
+        This endpoint is named `webhook` and it is designed to retrieve message data from `https://dashboard.sms2u.io/api/webhook/SECRET_KEY/PHONE_NO`, using a GET method. The URL requires two dynamic parameters, the `SECRET_KEY` and the `PHONE_NO` which should be replaced by the valid secret key and phone number respectively before making a request.
 
         No specific headers are required in the request being sent to this endpoint; however, it requires authentication. It uses a 'bearer token' type of authentication for securing its endpoint. The key in this 'bearer' authentication is named 'token' and its corresponding value should be the valid 'BearerToken'.
 

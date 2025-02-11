@@ -7,8 +7,8 @@ servers:
 security:
   - bearerAuth: []
 paths:
-  /api/messages/SECRET_KEY/PHONE_NO:
-    $ref: paths/api_messages_SECRET_KEY_PHONE_NO.yaml
+  /api/webhook/SECRET_KEY/PHONE_NO:
+    $ref: paths/api_webhook_SECRET_KEY_PHONE_NO.yaml
 components:
   securitySchemes:
     bearerAuth:
