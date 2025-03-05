@@ -4,11 +4,14 @@ info:
   version: 1.0.0
 servers:
   - url: https://dashboard.sms2u.io
+  - url: https://dashboard.sms2u.io
 security:
   - bearerAuth: []
 paths:
-  /api/webhook/SECRET_KEY/PHONE_NO:
-    $ref: paths/api_webhook_SECRET_KEY_PHONE_NO.yaml
+  /api/webhook/secret_key/number:
+    $ref: paths/api_webhook_secret_key_number.yaml
+  /api/webhook/secret_key/numberAndMessageList:
+    $ref: paths/api_webhook_secret_key_numberAndMessageList.yaml
 components:
   securitySchemes:
     bearerAuth:

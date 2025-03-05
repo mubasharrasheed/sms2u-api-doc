@@ -7,6 +7,9 @@
   "servers": [
     {
       "url": "https://dashboard.sms2u.io"
+    },
+    {
+      "url": "https://dashboard.sms2u.io"
     }
   ],
   "security": [
@@ -15,13 +18,13 @@
     }
   ],
   "paths": {
-    "/api/webhook/SECRET_KEY/PHONE_NO": {
+    "/api/webhook/secret_key/number": {
       "get": {
         "tags": [
-          "AccountGeneral"
+          "SMS2U"
         ],
-        "summary": "webhook",
-        "description": "This endpoint is named `webhook` and it is designed to retrieve message data from `https://dashboard.sms2u.io/api/webhook/SECRET_KEY/PHONE_NO`, using a GET method. The URL requires two dynamic parameters, the `SECRET_KEY` and the `PHONE_NO` which should be replaced by the valid secret key and phone number respectively before making a request.\n\nNo specific headers are required in the request being sent to this endpoint; however, it requires authentication. It uses a 'bearer token' type of authentication for securing its endpoint. The key in this 'bearer' authentication is named 'token' and its corresponding value should be the valid 'BearerToken'.\n\nIn summary, this endpoint is basically used to retrieve messages associated with a specific phone number which is identified by the 'PHONE_NO' in the endpoint URL. Using the provided 'BearerToken' as an authentication parameter ensures the security and reliability of data retrieved from this endpoint. The data acquired can be used for several purposes, all dependent on the needs of developers or the application integrating this API.",
+        "summary": "messages",
+        "description": "This documentation describes the 'messages' endpoint. \n\nThe endpoint is a GET request, which typically signifies data retrieval. The URL for this request is specified as 'https://dashboard.sms2u.io/api/webhook/secret_key/number'. \n\nThis URL routes to the 'sms2u' service's API, specifically the 'webhook' section. The string following 'webhook/' looks to be a Base64 encoded string or some other encoded identifier, possibly specifying the user to be contacted or the specific webhook instance. Following this identifier, 'number' seems to be a phone number, likely the one to which an SMS is going to be sent. \n\nThe request does not specify any headers, meaning it does not require any specific additional parameters or settings to be included in the HTTP request.\n\nThe auth field defines a bearer token authentication method. This method of authentication uses a bearer token, a cryptographic string, which must be included in all requests to this endpoint. The key for the auth token is 'token', and the value is 'BearerToken'; these will be needed to ensure a successful and secure connection. \n\nPlease replace 'BearerToken' with the actual bearer token when sending the request. The bearer token type is a string. \n\nTo summarise, this 'messages' endpoint retrieves data from the specified URL, which is set to a specific webhook on the 'sms2u' service. It requires bearer token authentication to ensure the request comes from an authorised source.",
         "security": [
           {
             "bearerAuth": []
@@ -91,42 +94,42 @@
                       "_id": "67ab1d3cf5d0746d07f0a301",
                       "body": "928511 is your Ticketmaster code.",
                       "from": "TKTMASTER",
-                      "to": "PHONE_NO",
+                      "to": "number",
                       "dateReceived": "2025-02-11T09:49:48.039Z"
                     },
                     {
                       "_id": "67aa0a08076f92f8e0c40180",
                       "body": "218128 is your Ticketmaster code.",
                       "from": "TKTMASTER",
-                      "to": "PHONE_NO",
+                      "to": "number",
                       "dateReceived": "2025-02-10T14:15:36.868Z"
                     },
                     {
                       "_id": "67a7570d06854264004e6482",
                       "body": "941840 is your Ticketmaster code.",
                       "from": "TKTMASTER",
-                      "to": "PHONE_NO",
+                      "to": "number",
                       "dateReceived": "2025-02-08T13:07:25.447Z"
                     },
                     {
                       "_id": "67a754ed06854264004e6473",
                       "body": "941840 is your Ticketmaster code.",
                       "from": "TKTMASTER",
-                      "to": "PHONE_NO",
+                      "to": "number",
                       "dateReceived": "2025-02-08T12:58:21.098Z"
                     },
                     {
                       "_id": "67a7536006854264004e6445",
                       "body": "411206 is your Ticketmaster code.",
                       "from": "TKTMASTER",
-                      "to": "PHONE_NO",
+                      "to": "number",
                       "dateReceived": "2025-02-08T12:51:44.203Z"
                     },
                     {
                       "_id": "67a7523206854264004e642a",
                       "body": "411206 is your Ticketmaster code.",
                       "from": "TKTMASTER",
-                      "to": "PHONE_NO",
+                      "to": "number",
                       "dateReceived": "2025-02-08T12:46:42.522Z"
                     }
                   ]
@@ -194,6 +197,216 @@
                 "example": {
                   "success": false,
                   "message": "User Not Found!"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/webhook/secret_key/numberAndMessageList": {
+      "get": {
+        "tags": [
+          "SMS2U"
+        ],
+        "summary": "numberAndMessageList",
+        "description": "Endpoint Name: numberAndMessageList\n\nThis is a GET request, which is used to retrieve data from a specified resource in a server.\n\nThe URL for the request is: https://dashboard.sms2u.io/api/webhook/secret_key/numberAndMessageList. \n\nThis URL consists of the base URL (https://dashboard.sms2u.io/), api endpoint (/api/webhook/) and the path parameter (/secret_key/numberAndMessageList). This path parameter looks like a long string, which could be a user ID or some kind of unique identifier, but without additional context, we cannot be certain. \n\nThis request does not contain any header information. Headers are often used to provide additional parameters for the request or the return response, for example content-type or authentication information.\n\nThis request uses Bearer Authentication, a HTTP authentication scheme that involves security tokens called bearer tokens. The bearer token is sent in the 'Authorization' header. The key is named \"token\" and the value is set to \"BearerToken\". The \"type\" indicates that our token's data type is a string. \n\nThis is the information you provide so the server knows the request comes from an authenticated user. Be careful to replace \"BearerToken\" with your actual Bearer token, the one you would get after a successful login or authentication, otherwise, the server would reject your request.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "1299"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"513-bMig9yqk8NbFiwrpnjV1gXpF+PI\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 05 Mar 2025 06:32:29 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "messages": [
+                    {
+                      "body": "008550 is your Ticketmaster code.",
+                      "from": "TKTMASTER",
+                      "to": "+447411239271",
+                      "dateReceived": "2025-03-03T12:26:18.746Z"
+                    },
+                    {
+                      "body": "Hhh",
+                      "from": "+447810520795",
+                      "to": "+447411239271",
+                      "dateReceived": "2025-02-27T08:53:23.993Z"
+                    },
+                    {
+                      "body": "340508 is your Ticketmaster code.",
+                      "from": "TKTMASTER",
+                      "to": "+447411239271",
+                      "dateReceived": "2025-02-27T08:52:20.564Z"
+                    },
+                    {
+                      "body": "Hello",
+                      "from": "+447810520795",
+                      "to": "+447411239271",
+                      "dateReceived": "2025-02-27T08:49:52.611Z"
+                    },
+                    {
+                      "body": "Test",
+                      "from": "+447810520795",
+                      "to": "+447411239271",
+                      "dateReceived": "2025-02-27T08:49:07.322Z"
+                    },
+                    {
+                      "body": "393088 is your Ticketmaster code.",
+                      "from": "TKTMASTER",
+                      "to": "+447411239271",
+                      "dateReceived": "2025-02-27T08:44:15.962Z"
+                    },
+                    {
+                      "body": "585997 is your Ticketmaster code.",
+                      "from": "TKTMASTER",
+                      "to": "+447411239271",
+                      "dateReceived": "2025-02-26T10:31:03.775Z"
+                    },
+                    {
+                      "body": "585997 is your Ticketmaster code.",
+                      "from": "TKTMASTER",
+                      "to": "+447411239271",
+                      "dateReceived": "2025-02-26T10:29:22.737Z"
+                    },
+                    {
+                      "body": "Message for the Dev User.",
+                      "from": "+447426936730",
+                      "to": "+447411239271",
+                      "dateReceived": "2025-02-21T14:55:05.723Z"
+                    },
+                    {
+                      "body": "Testing message for dev user.",
+                      "from": "+447426936730",
+                      "to": "+447411239271",
+                      "dateReceived": "2025-02-21T14:27:35.882Z"
+                    }
+                  ],
+                  "numbers": [
+                    "+10123456789",
+                    "+447411239271"
+                  ],
+                  "success": true,
+                  "userId": "67b8893642f63d695338b14c"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "45"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"2d-HBm/uOBLe9ZO1ca2+PaWNaN2RBE\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 05 Mar 2025 06:34:55 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "message": "User Not Found!",
+                  "success": false
                 }
               }
             }
